@@ -4,27 +4,36 @@ import bannerimg from "@/assets/banner.png";
 const Banner = () => {
   return (
     <section>
-      <div className="container mx-auto flex justify-around items-center my-10 bg-[#323741] rounded-2xl h-[554]">
-        <div>
+      <div className="container mx-auto my-5 flex min-h-[700px] flex-col items-center justify-around gap-8 rounded-2xl bg-[#323741] px-5 py-10 sm:my-8 sm:px-8 lg:my-10 lg:flex-row lg:px-12">
+        <div className="text-center lg:text-left">
           <h2 className="uppercase font-semibold text-[#B2DA00]">
             Workout Library
           </h2>
-          <h2 className="font-bold text-5xl/15 mb-5">
+
+          <h2 className="my-4 text-4xl font-bold leading-tight sm:text-5xl lg:my-6 lg:text-6xl lg:leading-[3rem]">
             Train with intent. Log <br />
             every set.
           </h2>
+
           <p>
             FitLog is a dark, no-nonsense gym companion: pick a lift,
             <br /> lock it into today's plan, and watch the week's work add
             <br /> up.
           </p>
-          <button className="btn bg-[#B2DA00] text-black rounded-2xl mt-5">
+
+          <button className="btn mt-5 rounded-2xl bg-[#B2DA00] text-black">
             Browse Workouts
           </button>
         </div>
 
         <div>
-          <Image src={bannerimg} alt="hero img" />
+          <Image
+            src={bannerimg}
+            alt="hero img"
+            height={500}
+            width={450}
+            className="h-auto w-[280px] sm:w-[350px] lg:w-[450px]"
+          />
         </div>
       </div>
     </section>
