@@ -1,8 +1,7 @@
 import { IworkOuts } from "@/type/WorkOutsType";
 import Image from "next/image";
-import React from "react";
-import { MdAddCard } from "react-icons/md";
-import { MdBookmarkAdded } from "react-icons/md";
+import AddToPlanButton from "../workoutdetails/AddToPlanButton";
+import SavedLaterButton from "../workoutdetails/SavedLaterButton";
 
 interface IworkOutDetailsCardProps {
   workout: IworkOuts;
@@ -95,14 +94,8 @@ const WorkOutDetailsCard = ({ workout }: IworkOutDetailsCardProps) => {
         </div>
 
         <div className="card-actions ">
-          <button className="btn rounded-2xl bg-[#B2DA00] text-black">
-            <MdAddCard />
-            Add to today&apos;s plan
-          </button>
-          <button className="btn rounded-2xl border-amber-50">
-            <MdBookmarkAdded />
-            Save For Later
-          </button>
+          <AddToPlanButton workout={workout} />
+          <SavedLaterButton workout={workout} />
         </div>
       </div>
     </div>

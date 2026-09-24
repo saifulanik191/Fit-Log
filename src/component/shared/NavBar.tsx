@@ -2,6 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import logo from "@/assets/logo.png";
+import PlanButton from "../navbar/PlanButton";
+import SavedButton from "../navbar/SavedButton";
 
 const NavBar = () => {
   const links = (
@@ -60,8 +62,8 @@ const NavBar = () => {
           <ul className="menu menu-horizontal px-1">{links}</ul>
         </div>
         <div className="navbar-end gap-3">
-          <a className="btn ">Plan(0)</a>
-          <a className="btn">saved(0)</a>
+          <PlanButton />
+          <SavedButton />
         </div>
       </div>
     </nav>
