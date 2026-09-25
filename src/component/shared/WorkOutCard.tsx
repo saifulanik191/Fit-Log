@@ -11,7 +11,7 @@ const WorkOutCard = ({ workout }: IworkOutCardProps) => {
   return (
     <Link href={`/workout/${workout.id}`}>
       {" "}
-      <div className="card w-full  overflow-hidden rounded-2xl border border-base-content/10 bg-[#1b1e24] shadow-md">
+      <div className="card w-full  overflow-hidden rounded-2xl border border-base-content/10 bg-[#1b1e24] shadow-md hover:border-[#c6ff00] transition-shadow">
         <figure className="h-52 w-full sm:h-56">
           <Image
             src={workout.image}

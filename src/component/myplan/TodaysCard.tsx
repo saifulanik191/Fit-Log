@@ -5,6 +5,7 @@ import { IoClose } from "react-icons/io5";
 import { IworkOuts } from "@/type/WorkOutsType";
 import Link from "next/link";
 import { WorkOutContext } from "@/context/WorkOutContext";
+import { toast } from "react-toastify";
 
 interface ItodaysCardProps {
   workout: IworkOuts;
@@ -13,12 +14,21 @@ interface ItodaysCardProps {
 const TodaysCard = ({ workout }: ItodaysCardProps) => {
   const { todaysPlan, setTodaysPlan } = useContext(WorkOutContext);
 
+  const handleMarkAsDoneWorkout = () => {
+    const remainingWorkouts = todaysPlan.filter(
+      (currentWorkout) => currentWorkout.id !== workout.id,
+    );
+
+    setTodaysPlan(remainingWorkouts);
+    toast.success(`you completed ${workout.name}  `);
+  };
   const handleTodaysRemoveWorkout = () => {
     const remainingWorkouts = todaysPlan.filter(
       (currentWorkout) => currentWorkout.id !== workout.id,
     );
 
     setTodaysPlan(remainingWorkouts);
+    toast.error(`${workout.name} removed from today's plan`);
   };
 
   return (
@@ -71,7 +81,7 @@ const TodaysCard = ({ workout }: ItodaysCardProps) => {
         </Link>
 
         <button
-          onClick={() => handleTodaysRemoveWorkout()}
+          onClick={() => handleMarkAsDoneWorkout()}
           className="btn btn-sm rounded-full border-0 bg-[#B2DA00] px-4 text-black hover:bg-[#c8ef19]"
         >
           ✓ &nbsp; Mark as Done

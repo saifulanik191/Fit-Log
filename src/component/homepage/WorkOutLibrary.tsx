@@ -20,7 +20,7 @@ const WorkOutLibrary = async () => {
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {workOutData.map((workout: IworkOuts, ind: number) => {
           return (
-            <div key={ind}>
+            <div id="library" key={ind}>
               <WorkOutCard workout={workout} />
             </div>
           );

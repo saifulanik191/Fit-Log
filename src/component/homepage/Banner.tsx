@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import bannerimg from "@/assets/banner.png";
+import BannerButton from "./BannerButton";
 const Banner = () => {
   return (
     <section>
@@ -21,9 +22,7 @@ const Banner = () => {
             <br /> up.
           </p>
 
-          <button className="btn mt-5 rounded-2xl bg-[#B2DA00] text-black">
-            Browse Workouts
-          </button>
+          <BannerButton />
         </div>
 
         <div>

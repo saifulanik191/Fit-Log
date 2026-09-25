@@ -5,6 +5,7 @@ import { IoClose } from "react-icons/io5";
 import { IworkOuts } from "@/type/WorkOutsType";
 import Link from "next/link";
 import { WorkOutContext } from "@/context/WorkOutContext";
+import { toast } from "react-toastify";
 
 interface IsavedCardProps {
   workout: IworkOuts;
@@ -19,6 +20,7 @@ const SavedCard = ({ workout }: IsavedCardProps) => {
     );
 
     setSavedLater(remainingWorkouts);
+    toast.error(`${workout.name} removed from saved`);
   };
 
   return (

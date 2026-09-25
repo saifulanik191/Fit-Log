@@ -3,13 +3,17 @@ import { WorkOutContext } from "@/context/WorkOutContext";
 import { IworkOuts } from "@/type/WorkOutsType";
 import { useContext } from "react";
 import { MdAddCard } from "react-icons/md";
+import { toast } from "react-toastify";
 
 const AddToPlanButton = ({ workout }: { workout: IworkOuts }) => {
   const { todaysPlan, setTodaysPlan } = useContext(WorkOutContext);
-
   const handleAddToday = () => {
+    if (todaysPlan.find((currentWorkout) => currentWorkout.id === workout.id)) {
+      toast.error(`"${workout.name}" is already added`);
+      return;
+    }
     setTodaysPlan([...todaysPlan, workout]);
-    alert(`you have add"${workout.name}" for today workout`);
+    toast.success(`you have added "${workout.name}" to todays workout`);
   };
 
   return (

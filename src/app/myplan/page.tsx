@@ -48,7 +48,7 @@ const MyPlanPage = () => {
   const sortedSavedWorkOut = sortWorkOut(savedLater);
 
   return (
-    <div className="container mx-auto mb-10">
+    <div className="container mx-auto mb-10 mb-auto">
       <h2 className="text-2xl font-bold uppercase mt-5">my plan</h2>
       <p>Cap of five lifts for today. Finish them, then load more.</p>
 
@@ -75,9 +75,9 @@ const MyPlanPage = () => {
 
       {/*Tab  */}
 
-      <div className="justify-between">
-        <div className=" text-end mb-[-45px] ">
-          <h2 className="mr-18 mb-2">sort by</h2>
+      <div className="flexjustify-between">
+        <div className=" flex justify-end items-center gap-4 mb-[-45px] ">
+          <h2 className="text-white/80">sort by</h2>
           <select
             value={sortby}
             onChange={(e) =>
