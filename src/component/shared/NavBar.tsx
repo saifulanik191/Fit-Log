@@ -1,20 +1,37 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import logo from "@/assets/logo.png";
 import PlanButton from "../navbar/PlanButton";
 import SavedButton from "../navbar/SavedButton";
+import { usePathname } from "next/navigation";
 
 const NavBar = () => {
+  const pathname = usePathname();
   const links = (
     <>
       <li>
-        <Link className="text-[18px] font-semibold" href="/">
+        <Link
+          className={
+            pathname === "/"
+              ? "text-[#B2DA00] text-[18px] font-semibold"
+              : "text-[18px] font-semibold"
+          }
+          href="/"
+        >
           Workouts
         </Link>
       </li>
       <li>
-        <Link className="text-[18px] font-semibold" href="/myplan">
+        <Link
+          className={
+            pathname === "/myplan"
+              ? "text-[#B2DA00] text-[18px] font-semibold"
+              : "text-[18px] font-semibold"
+          }
+          href="/myplan"
+        >
           My Plan
         </Link>
       </li>
@@ -22,7 +39,7 @@ const NavBar = () => {
   );
 
   return (
-    <nav className="bg-base-100 shadow-">
+    <nav className="bg-base-100 sticky top-0 z-50 border-b border-b-white/10">
       <div className="navbar container mx-auto p-0">
         <div className="navbar-start">
           <div className="dropdown">

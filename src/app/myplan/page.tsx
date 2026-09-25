@@ -28,6 +28,24 @@ const MyPlanPage = () => {
   );
 
   const [activeTab, setActiveTab] = useState("todaysplan");
+  const [sortby, setSortBy] = useState<"duration" | "calories" | "rating">(
+    "rating",
+  );
+
+  const sortWorkOut = (workout: IworkOuts[]) => {
+    const sortedWorkOut = [...workout];
+    if (sortby === "duration") {
+      sortedWorkOut.sort((a, b) => b.duration - a.duration);
+    } else if (sortby === "calories") {
+      sortedWorkOut.sort((a, b) => b.caloriesBurned - a.caloriesBurned);
+    } else if (sortby === "rating") {
+      sortedWorkOut.sort((a, b) => b.rating - a.rating);
+    }
+    return sortedWorkOut;
+  };
+
+  const sortedTodaysWorkOut = sortWorkOut(todaysPlan);
+  const sortedSavedWorkOut = sortWorkOut(savedLater);
 
   return (
     <div className="container mx-auto mb-10">
@@ -55,70 +73,94 @@ const MyPlanPage = () => {
         </div>
       </div>
 
-      <div className="tabs tabs-lift">
-        <input
-          type="radio"
-          name="my_tabs_3"
-          className={`tab ${activeTab === "todaysplan" ? "text-[#B2DA00] font-bold" : "text-gray-300 font-semibold"}`}
-          aria-label="Today's Plan"
-          defaultChecked
-          onClick={() => setActiveTab("todaysplan")}
-        />
-        <div className="tab-content bg-base-100 border-base-300 p-6">
-          {todaysPlan.length > 0 ? (
-            todaysPlan.map((workout: IworkOuts, ind: number) => {
-              return (
-                <div key={ind}>
-                  <TodaysCard workout={workout} />
-                </div>
-              );
-            })
-          ) : (
-            <div className=" text-center">
-              <h2 className="text-2xl uppercase font-bold">Nothing here yet</h2>
-              <p className="py-3">
-                Browse the library and add a lift to get today moving.
-              </p>
-              <Link
-                href="/"
-                className="btn rounded-2xl bg-[#B2DA00] text-black font-bold"
-              >
-                Go to workout
-              </Link>
-            </div>
-          )}
+      {/*Tab  */}
+
+      <div className="justify-between">
+        <div className=" text-end mb-[-45px] ">
+          <h2 className="mr-18 mb-2">sort by</h2>
+          <select
+            value={sortby}
+            onChange={(e) =>
+              setSortBy(e.target.value as "duration" | "calories" | "rating")
+            }
+            defaultValue="Pick a Runtime"
+            className="select border-[#B2DA00] w-30"
+          >
+            <option value={"duration"}>Duration</option>
+            <option value={"calories"}>Calories</option>
+            <option value={"rating"}>Rating</option>
+          </select>
         </div>
 
-        <input
-          type="radio"
-          name="my_tabs_3"
-          className={`tab ${activeTab === "saved" ? "text-[#B2DA00] font-bold" : "text-gray-300 font-semibold"}`}
-          aria-label="Saved"
-          onClick={() => setActiveTab("saved")}
-        />
-        <div className="tab-content bg-base-100 border-base-300 p-6">
-          {savedLater.length > 0 ? (
-            savedLater.map((workout: IworkOuts, ind: number) => {
-              return (
-                <div key={ind}>
-                  <SavedCard workout={workout} />
-                </div>
-              );
-            })
-          ) : (
-            <div className=" text-center">
-              <h2 className="text-2xl uppercase font-bold">Nothing here yet</h2>
-              <p className="py-3">
-                Browse the library and add a lift to get today moving.
-              </p>
-              <Link
-                href="/"
-                className="btn rounded-2xl bg-[#B2DA00] text-black font-bold"
-              >
-                Go to workout
-              </Link>
-            </div>
-          )}
+        <div className="tabs tabs-box w-full gap-y-10">
+          <input
+            type="radio"
+            name="my_tabs_3"
+            className={`tab ${activeTab === "todaysplan" ? "text-[#B2DA00] border border-[#B2DA00] font-bold" : "text-gray-300 font-semibold"}`}
+            aria-label="Today's Plan"
+            defaultChecked
+            onClick={() => setActiveTab("todaysplan")}
+          />
+          <div className="tab-content  border-base-300 p-6 bg-white/10">
+            {sortedTodaysWorkOut.length > 0 ? (
+              sortedTodaysWorkOut.map((workout: IworkOuts, ind: number) => {
+                return (
+                  <div key={ind}>
+                    <TodaysCard workout={workout} />
+                  </div>
+                );
+              })
+            ) : (
+              <div className=" text-center">
+                <h2 className="text-2xl uppercase font-bold">
+                  Nothing here yet
+                </h2>
+                <p className="py-3">
+                  Browse the library and add a lift to get today moving.
+                </p>
+                <Link
+                  href="/"
+                  className="btn rounded-2xl bg-[#B2DA00] text-black font-bold"
+                >
+                  Go to workout
+                </Link>
+              </div>
+            )}
+          </div>
+
+          <input
+            type="radio"
+            name="my_tabs_3"
+            className={`tab ${activeTab === "saved" ? "text-[#B2DA00] border border-[#B2DA00]  font-bold" : "text-gray-300 font-semibold"} `}
+            aria-label="Saved"
+            onClick={() => setActiveTab("saved")}
+          />
+          <div className="tab-content  bg-white/10 border-base-300 p-6">
+            {sortedSavedWorkOut.length > 0 ? (
+              sortedSavedWorkOut.map((workout: IworkOuts, ind: number) => {
+                return (
+                  <div key={ind}>
+                    <SavedCard workout={workout} />
+                  </div>
+                );
+              })
+            ) : (
+              <div className=" text-center">
+                <h2 className="text-2xl uppercase font-bold">
+                  Nothing here yet
+                </h2>
+                <p className="py-3">
+                  Browse the library and add a lift to get today moving.
+                </p>
+                <Link
+                  href="/"
+                  className="btn rounded-2xl bg-[#B2DA00] text-black font-bold"
+                >
+                  Go to workout
+                </Link>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>
