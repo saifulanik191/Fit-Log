@@ -1,7 +1,5 @@
 import WorkOutDetailsCard from "@/component/shared/WorkOutDetailsCard";
 import { IworkOuts } from "@/type/WorkOutsType";
-import Image from "next/image";
-import React from "react";
 
 interface IworkOutDetailProps {
   params: Promise<{

@@ -1,4 +1,5 @@
 "use client";
+
 import SavedCard from "@/component/myplan/SavedCard";
 import TodaysCard from "@/component/myplan/TodaysCard";
 import { WorkOutContext } from "@/context/WorkOutContext";
@@ -13,6 +14,7 @@ const MyPlanPage = () => {
     (total, workout) => total + workout.duration,
     0,
   );
+
   const totalSavedMinutes = savedLater.reduce(
     (total, workout) => total + workout.duration,
     0,
@@ -22,18 +24,21 @@ const MyPlanPage = () => {
     (total, workout) => total + workout.caloriesBurned,
     0,
   );
+
   const totalSavedCalories = savedLater.reduce(
     (total, workout) => total + workout.caloriesBurned,
     0,
   );
 
   const [activeTab, setActiveTab] = useState("todaysplan");
+
   const [sortby, setSortBy] = useState<"duration" | "calories" | "rating">(
-    "rating",
+    "duration",
   );
 
   const sortWorkOut = (workout: IworkOuts[]) => {
     const sortedWorkOut = [...workout];
+
     if (sortby === "duration") {
       sortedWorkOut.sort((a, b) => b.duration - a.duration);
     } else if (sortby === "calories") {
@@ -41,6 +46,7 @@ const MyPlanPage = () => {
     } else if (sortby === "rating") {
       sortedWorkOut.sort((a, b) => b.rating - a.rating);
     }
+
     return sortedWorkOut;
   };
 
@@ -48,60 +54,68 @@ const MyPlanPage = () => {
   const sortedSavedWorkOut = sortWorkOut(savedLater);
 
   return (
-    <div className="container mx-auto mb-10 mb-auto">
-      <h2 className="text-2xl font-bold uppercase mt-5">my plan</h2>
-      <p>Cap of five lifts for today. Finish them, then load more.</p>
+    <div className="container mx-auto  px-4 sm:px-6 lg:px-8 mb-69">
+      <h2 className="mt-5 text-2xl font-bold uppercase">my plan</h2>
 
-      <div className=" grid grid-cols-1 sm:grid-cols-3  items-center rounded-2xl border-white bg-[#323741] my-10 h-30 ">
-        <div className=" border-r p-5  border-white/10">
+      <p className="mt-1 text-sm sm:text-base">
+        Cap of five lifts for today. Finish them, then load more.
+      </p>
+      <div className="my-6 grid grid-cols-1 items-center overflow-hidden rounded-2xl bg-[#323741] sm:my-10 sm:grid-cols-3">
+        <div className="border-b border-white/10 p-5 sm:border-r sm:border-b-0">
           <p>Exercises</p>
-          <h2 className="text-4xl  font-bold text-[#B2DA00]">
+
+          <h2 className="text-4xl font-bold text-[#B2DA00]">
             {activeTab === "todaysplan" ? todaysPlan.length : savedLater.length}
           </h2>
         </div>
-        <div className=" border-r p-5  border-white/10">
+
+        <div className="border-b border-white/10 p-5 sm:border-r sm:border-b-0">
           <p>Minutes</p>
-          <h2 className="text-4xl  font-bold">
+
+          <h2 className="text-4xl font-bold">
             {activeTab === "todaysplan" ? totalMinutes : totalSavedMinutes}
           </h2>
         </div>
+
         <div className="p-5">
           <p>Calories</p>
-          <h2 className="text-4xl  font-bold">
+
+          <h2 className="text-4xl font-bold">
             {activeTab === "todaysplan" ? totalCalories : totalSavedCalories}
           </h2>
         </div>
       </div>
+      <div className="w-full ">
+        <div className="mb-4 flex items-center justify-end gap-3 mb-[-45]">
+          <h2 className="text-sm text-white/80 sm:text-base">sort by</h2>
 
-      {/*Tab  */}
-
-      <div className="flexjustify-between">
-        <div className=" flex justify-end items-center gap-4 mb-[-45px] ">
-          <h2 className="text-white/80">sort by</h2>
           <select
             value={sortby}
             onChange={(e) =>
               setSortBy(e.target.value as "duration" | "calories" | "rating")
             }
-            defaultValue="Pick a Runtime"
-            className="select border-[#B2DA00] w-30"
+            className="select w-32 border-[#B2DA00]"
           >
-            <option value={"duration"}>Duration</option>
-            <option value={"calories"}>Calories</option>
-            <option value={"rating"}>Rating</option>
+            <option value="duration">Duration</option>
+            <option value="calories">Calories</option>
+            <option value="rating">Rating</option>
           </select>
         </div>
-
-        <div className="tabs tabs-box w-full gap-y-10">
+        <div className="tabs tabs-box w-full ">
           <input
             type="radio"
             name="my_tabs_3"
-            className={`tab ${activeTab === "todaysplan" ? "text-[#B2DA00] border border-[#B2DA00] font-bold" : "text-gray-300 font-semibold"}`}
+            className={`tab ${
+              activeTab === "todaysplan"
+                ? "border border-[#B2DA00] font-bold text-[#B2DA00] mb-10"
+                : "font-semibold text-gray-300 mb-10"
+            }`}
             aria-label="Today's Plan"
             defaultChecked
             onClick={() => setActiveTab("todaysplan")}
           />
-          <div className="tab-content  border-base-300 p-6 bg-white/10">
+
+          <div className="tab-content w-full border-base-300 bg-white/10 sm:p-2 ">
             {sortedTodaysWorkOut.length > 0 ? (
               sortedTodaysWorkOut.map((workout: IworkOuts, ind: number) => {
                 return (
@@ -111,16 +125,18 @@ const MyPlanPage = () => {
                 );
               })
             ) : (
-              <div className=" text-center">
-                <h2 className="text-2xl uppercase font-bold">
+              <div className="py-6 text-center">
+                <h2 className="text-2xl font-bold uppercase">
                   Nothing here yet
                 </h2>
+
                 <p className="py-3">
                   Browse the library and add a lift to get today moving.
                 </p>
+
                 <Link
                   href="/"
-                  className="btn rounded-2xl bg-[#B2DA00] text-black font-bold"
+                  className="btn rounded-2xl bg-[#B2DA00] font-bold text-black"
                 >
                   Go to workout
                 </Link>
@@ -131,11 +147,16 @@ const MyPlanPage = () => {
           <input
             type="radio"
             name="my_tabs_3"
-            className={`tab ${activeTab === "saved" ? "text-[#B2DA00] border border-[#B2DA00]  font-bold" : "text-gray-300 font-semibold"} `}
+            className={`tab ${
+              activeTab === "saved"
+                ? "border border-[#B2DA00] font-bold text-[#B2DA00]"
+                : "font-semibold text-gray-300"
+            }`}
             aria-label="Saved"
             onClick={() => setActiveTab("saved")}
           />
-          <div className="tab-content  bg-white/10 border-base-300 p-6">
+
+          <div className="tab-content w-full border-base-300 bg-white/10  sm:p-2">
             {sortedSavedWorkOut.length > 0 ? (
               sortedSavedWorkOut.map((workout: IworkOuts, ind: number) => {
                 return (
@@ -145,16 +166,18 @@ const MyPlanPage = () => {
                 );
               })
             ) : (
-              <div className=" text-center">
-                <h2 className="text-2xl uppercase font-bold">
+              <div className="py-6 text-center">
+                <h2 className="text-2xl font-bold uppercase">
                   Nothing here yet
                 </h2>
+
                 <p className="py-3">
                   Browse the library and add a lift to get today moving.
                 </p>
+
                 <Link
                   href="/"
-                  className="btn rounded-2xl bg-[#B2DA00] text-black font-bold"
+                  className="btn rounded-2xl bg-[#B2DA00] font-bold text-black"
                 >
                   Go to workout
                 </Link>
